@@ -10,77 +10,64 @@ body{
     font-family: Arial, sans-serif;
     background:#0f172a;
     color:white;
-    text-align:center;
-    padding-top:80px;
+    margin:0;
+    padding:0;
 }
 
-.box{
+/* Domain badge (top-left) */
+#domainBadge{
+    position:fixed;
+    top:15px;
+    left:15px;
     background:#1e293b;
-    padding:30px;
-    border-radius:12px;
-    width:600px;
-    margin:auto;
-}
-
-h1{
-    margin-bottom:10px;
-}
-
-.info{
-    color:#38bdf8;
+    padding:10px 18px;
+    border-radius:8px;
     font-size:18px;
+    color:#38bdf8;
+    border:1px solid #334155;
+    box-shadow:0 4px 12px rgba(0,0,0,0.3);
+}
+
+/* Center content */
+.center{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    font-size:40px;
+    color:white;
 }
 </style>
 </head>
 
 <body>
 
-<div class="box">
-<h1>DynamicDomains</h1>
+<!-- Dynamic domain badge -->
+<div id="domainBadge">Loading…</div>
 
-<p class="info" id="domain"></p>
-<p id="page"></p>
-
-</div>
+<!-- Center text -->
+<div class="center">hi</div>
 
 <script>
+// URL example:
+// username.github.io/dynamicdomains/com/example/
 
-// Example URL:
-// username.github.io/dynamicdomains/com/example/home.html
+const path = window.location.pathname.split("/");
 
-const path = window.location.pathname.split("/")
+// Expected structure:
+// [ "", "dynamicdomains", "com", "example", ... ]
 
-// path structure
-// [ "", "dynamicdomains", "com", "example", "home.html" ]
+const tld  = path[2];
+const name = path[3];
 
-const tld = path[2]
-const name = path[3]
-const page = path[4]
+let domain = "unknown.domain";
 
-const domain = name + "." + tld
-
-document.getElementById("domain").innerText =
-"Domain: " + domain
-
-document.getElementById("page").innerText =
-"Page: " + page
-
-// Optional: load page content dynamically
-if(page){
-
-    fetch(page)
-    .then(res => res.text())
-    .then(data => {
-        const div = document.createElement("div")
-        div.innerHTML = data
-        document.body.appendChild(div)
-    })
-    .catch(()=>{
-        console.warn(domain + " page missing")
-    })
-
+if(tld && name){
+    domain = name + "." + tld;
 }
 
+// Update badge
+document.getElementById("domainBadge").innerText = domain;
 </script>
 
 </body>

@@ -14,6 +14,19 @@ body{
     padding-top:80px;
 }
 
+/* Top-left domain display */
+#domainBadge{
+    position:fixed;
+    top:15px;
+    left:15px;
+    background:#1e293b;
+    padding:10px 18px;
+    border-radius:8px;
+    font-size:18px;
+    color:#38bdf8;
+    box-shadow:0 4px 12px rgba(0,0,0,0.3);
+}
+
 .box{
     background:#1e293b;
     padding:30px;
@@ -35,52 +48,52 @@ h1{
 
 <body>
 
+<!-- NEW: Top-left domain badge -->
+<div id="domainBadge">Loading…</div>
+
 <div class="box">
 <h1>DynamicDomains</h1>
 
-<p class="info" id="domain"></p>
-<p id="page"></p>
+<p class="info" id="domain">Domain: </p>
+<p id="page">Page: </p>
 
 </div>
 
 <script>
-
 // Example URL:
 // username.github.io/dynamicdomains/com/example/home.html
 
-const path = window.location.pathname.split("/")
+const path = window.location.pathname.split("/");
 
-// path structure
+// path structure:
 // [ "", "dynamicdomains", "com", "example", "home.html" ]
 
-const tld = path[2]
-const name = path[3]
-const page = path[4]
+const tld  = path[2];
+const name = path[3];
+const page = path[4];
 
-const domain = name + "." + tld
+const domain = name + "." + tld;
 
-document.getElementById("domain").innerText =
-"Domain: " + domain
+// Update main box
+document.getElementById("domain").innerText = "Domain: " + domain;
+document.getElementById("page").innerText   = "Page: " + (page || "none");
 
-document.getElementById("page").innerText =
-"Page: " + page
+// Update top-left badge
+document.getElementById("domainBadge").innerText = domain;
 
 // Optional: load page content dynamically
 if(page){
-
     fetch(page)
     .then(res => res.text())
     .then(data => {
-        const div = document.createElement("div")
-        div.innerHTML = data
-        document.body.appendChild(div)
+        const div = document.createElement("div");
+        div.innerHTML = data;
+        document.body.appendChild(div);
     })
     .catch(()=>{
-        console.warn(domain + " page missing")
-    })
-
+        console.warn(domain + " page missing");
+    });
 }
-
 </script>
 
 </body>

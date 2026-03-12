@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>DynamicDomains Search</title>
+<title>SYSTEM DOMAIN DynamicDomains: search.dydom</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
@@ -63,6 +63,13 @@ input{
     margin-bottom:10px;
     border:1px solid #334155;
 }
+
+#errorMsg{
+    margin-top:20px;
+    color:#f87171;
+    font-size:20px;
+    font-weight:bold;
+}
 </style>
 </head>
 
@@ -75,6 +82,7 @@ input{
 <div class="searchBox">
     <input id="searchInput" type="text" placeholder="Search for a domain...">
     <div id="results"></div>
+    <div id="errorMsg"></div>
 </div>
 
 <script>
@@ -92,7 +100,8 @@ document.getElementById("domainBadge").innerText = domain;
 
 // --- SEARCH ENGINE LOGIC ---
 
-// List of domains in your repo (you can auto-generate this later)
+// List of registered domains in your repo
+// You can expand this list or load it from JSON later
 const domainList = [
     "test.com",
     "ahoj.sk",
@@ -103,10 +112,13 @@ const domainList = [
 
 const input = document.getElementById("searchInput");
 const results = document.getElementById("results");
+const errorMsg = document.getElementById("errorMsg");
 
+// Live search suggestions
 input.addEventListener("input", () => {
     const q = input.value.toLowerCase();
     results.innerHTML = "";
+    errorMsg.innerHTML = "";
 
     if(q.length === 0) return;
 
@@ -123,6 +135,25 @@ input.addEventListener("input", () => {
         div.innerText = m;
         results.appendChild(div);
     });
+});
+
+// ENTER key handler
+input.addEventListener("keydown", (e) => {
+    if(e.key === "Enter"){
+        const q = input.value.toLowerCase();
+        const match = domainList.find(d => d.toLowerCase() === q);
+
+        if(match){
+            // Convert "test.com" → /com/test/
+            const parts = match.split(".");
+            const name = parts[0];
+            const tld  = parts[1];
+
+            window.location.href = `/dynamicdomains/${tld}/${name}/`;
+        } else {
+            errorMsg.innerText = "You cheeky boi, that isnt a domain!";
+        }
+    }
 });
 </script>
 

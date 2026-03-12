@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>DynamicDomains</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#0f172a;
+    color:white;
+    margin:0;
+    padding:0;
+}
+
+/* Domain badge (top-left) */
+#domainBadge{
+    position:fixed;
+    top:15px;
+    left:15px;
+    background:#1e293b;
+    padding:10px 18px;
+    border-radius:8px;
+    font-size:18px;
+    color:#38bdf8;
+    border:1px solid #334155;
+    box-shadow:0 4px 12px rgba(0,0,0,0.3);
+}
+
+/* Center content */
+.center{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    font-size:40px;
+    color:white;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Dynamic domain badge -->
+<div id="domainBadge">Loading…</div>
+
+<!-- Center text -->
+<script>
+// URL example:
+// username.github.io/dynamicdomains/com/example/
+
+const path = window.location.pathname.split("/");
+
+// Expected structure:
+// [ "", "dynamicdomains", "com", "example", ... ]
+
+const tld  = path[2];
+const name = path[3];
+
+let domain = "unknown.domain";
+
+if(tld && name){
+    domain = name + "." + tld;
+}
+
+// Update badge
+document.getElementById("domainBadge").innerText = domain;
+</script>
+
+<div class="center" style="left: 50%; top: 31%"><h1>nemam pyzamka zatial</h1></div>
+
+</body>
+</html>

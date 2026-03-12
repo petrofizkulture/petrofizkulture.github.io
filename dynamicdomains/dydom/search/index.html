@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>DynamicDomains Search</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#0f172a;
+    color:white;
+    margin:0;
+    padding:0;
+}
+
+/* Domain badge */
+#domainBadge{
+    position:fixed;
+    top:15px;
+    left:15px;
+    background:#1e293b;
+    padding:10px 18px;
+    border-radius:8px;
+    font-size:18px;
+    color:#38bdf8;
+    border:1px solid #334155;
+    box-shadow:0 4px 12px rgba(0,0,0,0.3);
+}
+
+/* Center search box */
+.searchBox{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    width:80%;
+    max-width:500px;
+    text-align:center;
+}
+
+input{
+    width:100%;
+    padding:14px;
+    font-size:18px;
+    border-radius:8px;
+    border:none;
+    outline:none;
+    background:#1e293b;
+    color:white;
+}
+
+#results{
+    margin-top:20px;
+    text-align:left;
+    font-size:18px;
+}
+
+.resultItem{
+    background:#1e293b;
+    padding:10px 14px;
+    border-radius:8px;
+    margin-bottom:10px;
+    border:1px solid #334155;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Dynamic domain badge -->
+<div id="domainBadge">Loading…</div>
+
+<!-- Search UI -->
+<div class="searchBox">
+    <input id="searchInput" type="text" placeholder="Search for a domain...">
+    <div id="results"></div>
+</div>
+
+<script>
+// Extract domain from URL
+const path = window.location.pathname.split("/");
+const tld  = path[2];
+const name = path[3];
+let domain = "dynamicdomains";
+
+if(tld && name){
+    domain = name + "." + tld;
+}
+
+document.getElementById("domainBadge").innerText = domain;
+
+// --- SEARCH ENGINE LOGIC ---
+
+// List of domains in your repo (you can auto-generate this later)
+const domainList = [
+    "test.com",
+    "ahoj.sk",
+    "dynamicdomains.com",
+    "example.net",
+    "demo.org"
+];
+
+const input = document.getElementById("searchInput");
+const results = document.getElementById("results");
+
+input.addEventListener("input", () => {
+    const q = input.value.toLowerCase();
+    results.innerHTML = "";
+
+    if(q.length === 0) return;
+
+    const matches = domainList.filter(d => d.includes(q));
+
+    if(matches.length === 0){
+        results.innerHTML = "<div class='resultItem'>No results found</div>";
+        return;
+    }
+
+    matches.forEach(m => {
+        const div = document.createElement("div");
+        div.className = "resultItem";
+        div.innerText = m;
+        results.appendChild(div);
+    });
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>404 – DynamicDomains</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#0f172a;
+    color:white;
+    margin:0;
+    padding:0;
+}
+
+/* Domain badge */
+#domainBadge{
+    position:fixed;
+    top:15px;
+    left:15px;
+    background:#1e293b;
+    padding:10px 18px;
+    border-radius:8px;
+    font-size:18px;
+    color:#38bdf8;
+    border:1px solid #334155;
+    box-shadow:0 4px 12px rgba(0,0,0,0.3);
+}
+
+/* Center content */
+.center{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    text-align:center;
+}
+
+.center h1{
+    font-size:60px;
+    margin-bottom:10px;
+}
+
+.center p{
+    font-size:22px;
+    color:#94a3b8;
+}
+
+button{
+    margin-top:25px;
+    padding:12px 22px;
+    font-size:18px;
+    border:none;
+    border-radius:8px;
+    background:#38bdf8;
+    color:#0f172a;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+button:hover{
+    background:#7dd3fc;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Dynamic domain badge -->
+<div id="domainBadge">Loading…</div>
+
+<!-- Centered 404 content -->
+<div class="center">
+    <h1>404</h1>
+    <p>Oops… this domain or page doesn’t exist.</p>
+    <p>You cheeky boi, that isn’t a domain!</p>
+
+    <button onclick="window.history.back()">Go Back</button>
+</div>
+
+<script>
+// Extract domain from URL
+const path = window.location.pathname.split("/");
+const tld  = path[2];
+const name = path[3];
+
+let domain = "dynamicdomains";
+
+if(tld && name){
+    domain = name + "." + tld;
+}
+
+document.getElementById("domainBadge").innerText = domain;
+</script>
+
+</body>
+</html>

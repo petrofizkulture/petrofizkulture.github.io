@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Register a Domain – Redirecting…</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Auto‑redirect -->
+<meta http-equiv="refresh" content="2; URL=https://YOUR_DISCORD_INVITE_HERE">
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#0f172a;
+    color:white;
+    margin:0;
+    padding:0;
+}
+
+/* Domain badge */
+#domainBadge{
+    position:fixed;
+    top:15px;
+    left:15px;
+    background:#1e293b;
+    padding:10px 18px;
+    border-radius:8px;
+    font-size:18px;
+    color:#38bdf8;
+    border:1px solid #334155;
+    box-shadow:0 4px 12px rgba(0,0,0,0.3);
+}
+
+/* Center message */
+.center{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    text-align:center;
+}
+
+.center h1{
+    font-size:40px;
+    margin-bottom:10px;
+}
+
+.center p{
+    font-size:20px;
+    color:#94a3b8;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Dynamic domain badge -->
+<div id="domainBadge">Loading…</div>
+
+<!-- Centered redirect message -->
+<div class="center">
+    <h1>Redirecting…</h1>
+    <p>You’re being sent to our Discord server to register a domain.</p>
+    <p>If nothing happens, <a href="https://discord.gg/eSNGxY4u8x" style="color:#38bdf8;">click here</a>.</p>
+</div>
+
+<script>
+// Extract domain from URL
+const path = window.location.pathname.split("/");
+const tld  = path[2];
+const name = path[3];
+
+let domain = "dynamicdomains";
+
+if(tld && name){
+    domain = name + "." + tld;
+}
+
+document.getElementById("domainBadge").innerText = domain;
+</script>
+
+</body>
+</html>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<payloads>
+  <payload name="Example homebrew" path="example/boot.dol" />
+  <payload name="Another payload" path="tools/demo.elf" />
+</payloads>
